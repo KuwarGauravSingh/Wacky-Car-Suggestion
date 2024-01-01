@@ -1,0 +1,97 @@
+<!-- templates/result.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wacky Car Suggestions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0e68c; /* Khaki */
+            color: #222222; /* Dark Gray */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+        }
+
+        h1 {
+            color: #ff4500; /* Red-Orange */
+        }
+
+        .list-group-item {
+            background-color: #ffdab9; /* Peach */
+            border: 1px solid #cd853f; /* Peru */
+            margin-top: 10px;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #ff8c00; /* Dark Orange */
+        }
+
+        /* Adding a background image from Google */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('https://www.gstatic.com/webp/gallery/2.jpg') center center/cover no-repeat; /* Replace with your image URL */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Available Wacky Cars</h1>
+        {% if cars %}
+        <button id="toggleCars" class="btn btn-danger btn-block mt-3">Toggle Wacky Cars</button>
+        <ul class="list-group mt-4" id="carsList">
+            {% for car in cars %}
+            <li class="list-group-item">
+                <strong>{{ car.name }}</strong><br>
+                Model: {{ car.model }}<br>
+                Year of Purchase: {{ car.year }}<br>
+                Distance Traveled: {{ car.distance }} miles<br>
+                Owner: {{ car.owner }}
+            </li>
+            {% endfor %}
+        </ul>
+        <p class="mt-4">Interested in a car? Fill out the form below:</p>
+        <form action="{{ url_for('express_interest') }}" method="post">
+            <div class="form-group">
+                <label for="userName">Your Name:</label>
+                <input type="text" name="userName" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="userMobile">Mobile Number:</label>
+                <input type="tel" name="userMobile" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Express Interest</button>
+        </form>
+        {% else %}
+        <p class="mt-4 text-center">No wacky cars available within the budget. Try a higher budget for more fun!</p>
+        {% endif %}
+    </div>
+    
+</body>
+
+</html>
